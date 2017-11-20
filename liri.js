@@ -4,6 +4,7 @@ var inquirer = require("inquirer");
 var twitter = require("twitter");
 var spotify = require("node-spotify-api");
 var omdb = require("omdbapi");
+var request = require("request");
 
 var client = new twitter({
   consumer_key: 'bnICMoNqPDvV83mppQYCD3JJm',
@@ -34,7 +35,7 @@ inquirer.prompt ([
 {
 	type: "list",
 	name: "whatyawant",
-	message: "What do you want me to to?",
+	message: "Hello! What do you want me to to?",
 	choices: ["Show me my tweets", "Spotify a song", "Show me a movie", "Do what it says"]
 },
 
@@ -63,7 +64,12 @@ inquirer.prompt ([
 			say();
 			break;
 
-		}
+		};
+
+
+
+
+
 
 		//-----------------------------------------------------------------------------------------------------------------------------
 
@@ -96,12 +102,18 @@ inquirer.prompt ([
 
 		}; //function tweet ends here
 
+
+
+
+
+
 		//-----------------------------------------------------------------------------------------------------------------------------
 
         // Spotify a song
 
 		//-----------------------------------------------------------------------------------------------------------------------------
 
+		
 
 
 		function spotify () {
@@ -110,18 +122,40 @@ inquirer.prompt ([
 
 			{
 				type: "input",
-				name: "userInput",
+				name: "spotifyInput",
 				message: "What song would you like to know more about?"
 			}
 
 				]).then(function(song){
 
-					spotifykey.search ({ type: 'track', query: song.userInput, limit:1 }, function(err, data) {
+					spotifykey.search ({ type: 'track', query: song.spotifyInput, limit: 5 }, function(err, data) {
 					  if (err) {
 					    return console.log('Error occurred: ' + err);
 					  }
-					 
-					console.log(data.tracks.items[0].album.artists); 
+
+					  for (var i = 0; i < 4; i++) {
+
+					  	console.log("");
+					  	console.log("==================================================================================================");
+					  	console.log("");
+					  	console.log("Artist: " + data.tracks.items[i].artists[0].name + " ---- " + "Album: " + data.tracks.items[i].album.name + " ---- " + "Song Name: " + data.tracks.items[i].name + " ---- " + "Preview URL: " + data.tracks.items[i].preview_url) // Artist
+					  	console.log("");
+					  	console.log("==================================================================================================");
+					  	console.log("");
+
+
+					  }
+					
+
+							// * Artist(s)
+					     
+					        // * The song's name
+					     
+					        // * A preview link of the song from Spotify
+					       
+					        // * The album that the song is from
+
+
 
 					});
 
@@ -129,6 +163,11 @@ inquirer.prompt ([
 				});
 
 		}; // spotify() ends here
+
+
+
+
+
 
 
 
@@ -146,18 +185,61 @@ inquirer.prompt ([
 
 			{
 				type: "input",
-				name: "userInput",
+				name: "movieInput",
 				message: "What Movie would you like to know more about?"
 			}
 
-				]).then(function(response){
+				]).then(function(pickMovie){
 
-					
+					var queryUrl = "http://www.omdbapi.com/?t=" + pickMovie.movieInput + "&y=&plot=short&apikey=trilogy";
+
+					request(queryUrl, function(error, response, body) {
+
+					  // If the request is successful
+					  if (!error && response.statusCode === 200) {
+
+
+					    // Parse the body of the site and recover just the imdbRating
+					    // (Note: The syntax below for parsing isn't obvious. Just spend a few moments dissecting it).
+                        
+                        // * Title of the movie.
+                        // * Year the movie came out.
+                        // * IMDB Rating of the movie.
+                        // * Rotten Tomatoes Rating of the movie.
+                        // * Country where the movie was produced.
+                        // * Language of the movie.
+                        // * Plot of the movie.
+                        // * Actors in the movie.
+
+                        console.log(" ")
+
+					    console.log("Title: " + JSON.parse(body).Title + " --- " + "Release year: " + JSON.parse(body).Year + " --- " + "IMDB rating: " + JSON.parse(body).Ratings[0].Value + " --- " + "Rotten Tomatoes rating: " + JSON.parse(body).Ratings[1].Value);
+
+                        console.log(" ")
+
+					    console.log("Country produced in: " + JSON.parse(body).Country + " --- " + 	"Languages: " + JSON.parse(body).Language);
+
+                        console.log(" ")
+
+					    console.log("Plot: " + JSON.parse(body).Plot);
+
+                        console.log(" ")
+ 
+					    console.log("Actors: " + JSON.parse(body).Actors);
+
+
+					  }
+
+					});					
 
 				});
 
 
 		}; // movie() ends here
+
+
+
+
 
 
 
