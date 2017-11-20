@@ -5,6 +5,7 @@ var twitter = require("twitter");
 var spotify = require("node-spotify-api");
 var omdb = require("omdbapi");
 var request = require("request");
+var winston = require('winston');
 
 var client = new twitter({
   consumer_key: 'bnICMoNqPDvV83mppQYCD3JJm',
@@ -19,6 +20,22 @@ var spotifykey = new spotify ({
   secret: '30ffbb31f6164884befe7aa462307994'
 
 });
+
+
+
+// winston.add(
+//   winston.transports.file, {
+//     FILENAME: 'SOMEFILE.LOG',
+//     LEVEL: 'INFO',
+//     JSON: true,
+//     EOL: 'RN', // FOR WINDOWS, OR `EOL: ‘N’,` FOR *NIX OSS
+//     TIMESTAMP: true
+// });
+
+// WINSTON.LOG('INFO', 'HELLO LOG FILES!')
+// WINSTON.INFO('HELLO AGAIN LOG FILES!')
+
+
 
 
 

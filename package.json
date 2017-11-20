@@ -21,6 +21,7 @@
     "node-spotify-api": "^1.0.7",
     "omdbapi": "^2.0.1",
     "request": "^2.83.0",
-    "twitter": "^1.7.1"
+    "twitter": "^1.7.1",
+    "winston": "^2.4.0"
   }
 }
