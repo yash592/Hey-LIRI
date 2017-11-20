@@ -238,6 +238,13 @@ inquirer.prompt ([
 		}; // movie() ends here
 
 
+		// if(pickMovie.movieInput == "") {
+
+		// 					pickMovie.movieInput = "Mr Nobody";
+
+		// 				}
+
+
 
 
 
@@ -249,7 +256,47 @@ inquirer.prompt ([
 
 		//-----------------------------------------------------------------------------------------------------------------------------
 
+
+
 		function say () {
+
+			fs.readFile("random.txt", "utf8", function(error, data){
+
+				if (error) {
+					return console.log(error);
+				}
+
+				console.log(data);
+
+				var dataArr = data.split(",");
+
+				console.log(dataArr);
+				console.log(dataArr[1]);
+
+
+                // LOOOOOOOOL 
+				spotifykey.search ({ type: 'track', query: dataArr[1], limit: 5 }, function(err, data) {
+				  if (err) {
+				    return console.log('Error occurred: ' + err);
+				  }
+
+				  for (var i = 0; i < 4; i++) {
+
+				  	console.log("");
+				  	console.log("==================================================================================================");
+				  	console.log("");
+				  	console.log("Artist: " + data.tracks.items[i].artists[0].name + " ---- " + "Album: " + data.tracks.items[i].album.name + " ---- " + "Song Name: " + data.tracks.items[i].name + " ---- " + "Preview URL: " + data.tracks.items[i].preview_url) // Artist
+				  	console.log("");
+				  	console.log("==================================================================================================");
+				  	console.log("");
+
+
+				  }
+
+
+				});
+
+			})
 
 		}; //say() ends here
 
