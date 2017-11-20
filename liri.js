@@ -32,7 +32,7 @@ inquirer.prompt ([
 
 		switch (response.whatyawant) {
 			case "Show me my tweets":
-			// tweets();
+			tweets();
 			console.log("tweets!");
 			break;
 
@@ -50,8 +50,43 @@ inquirer.prompt ([
 
 		}
 
-		// @DonalIdTrump show tweets
+		// @DonalIdTrump show retarded tweets
+
+		function tweets() {
+
+            var params = {screen_name: 'DonalIdTrump'};
+			client.get('statuses/user_timeline', params, function(error, tweets, response) {
+  			if (!error) {
+
+  				for (var i = 0; i < 20; i++) {
+
+                    console.log("");
+                    console.log("==================================================================================================");
+                    console.log("");
+  					console.log("Retarded Tweet #" + [i] + ": " +  tweets[i].text);
+  					console.log("");
+  					console.log("==================================================================================================");
+  					console.log("");
+
+  				};
+  			};    		
+  			
+		});
+
+		}; //function tweet ends here
+
+		function spotify () {
+
+		}; // spotify() ends here
+
+		function movie () {
+
+		}; // movie() ends here
+
+		function say () {
+
+		}; //say() ends here
 
 		
 
-	});
+	}); // then function response closes here
