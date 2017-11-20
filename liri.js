@@ -12,9 +12,21 @@ var client = new twitter({
   access_token_secret: 'B1cc1YyrUWn7I7mmjJ0mYUmGVQx2Dfze23iKttoiL4N09',
 });
 
+var spotifykey = new spotify ({
 
+  id: '5cce13d7106545b9aa085dd5f5c9598f',
+  secret: '30ffbb31f6164884befe7aa462307994'
+
+});
+
+
+
+
+// ===================================
 
 // Prompting user about what they want
+
+// ===================================
 
 inquirer.prompt ([
 
@@ -32,25 +44,34 @@ inquirer.prompt ([
 
 		switch (response.whatyawant) {
 			case "Show me my tweets":
-			tweets();
-			console.log("tweets!");
+			console.log("Twitter!")
+			tweets();			
 			break;
 
 			case "Spotify a song":
-			console.log("songs!");
+			console.log("Spotify!");
+			spotify();
 			break;
 
 			case "Show me a movie":
-			console.log("movies!");
+			console.log("Movies!");
+			movie();
 			break;
 
 			case "Do what it says":
 			console.log("FU!");
+			say();
 			break;
 
 		}
 
+		//-----------------------------------------------------------------------------------------------------------------------------
+
 		// @DonalIdTrump show retarded tweets
+
+		//-----------------------------------------------------------------------------------------------------------------------------
+
+		
 
 		function tweets() {
 
@@ -75,13 +96,76 @@ inquirer.prompt ([
 
 		}; //function tweet ends here
 
+		//-----------------------------------------------------------------------------------------------------------------------------
+
+        // Spotify a song
+
+		//-----------------------------------------------------------------------------------------------------------------------------
+
+
+
 		function spotify () {
+
+			inquirer.prompt ([
+
+			{
+				type: "input",
+				name: "userInput",
+				message: "What song would you like to know more about?"
+			}
+
+				]).then(function(song){
+
+					spotifykey.search ({ type: 'track', query: song.userInput, limit:1 }, function(err, data) {
+					  if (err) {
+					    return console.log('Error occurred: ' + err);
+					  }
+					 
+					console.log(data.tracks.items[0].album.artists); 
+
+					});
+
+
+				});
 
 		}; // spotify() ends here
 
+
+
+		//-----------------------------------------------------------------------------------------------------------------------------
+
+		//OMDB a movie
+
+		//-----------------------------------------------------------------------------------------------------------------------------
+
+
+
 		function movie () {
 
+			inquirer.prompt ([
+
+			{
+				type: "input",
+				name: "userInput",
+				message: "What Movie would you like to know more about?"
+			}
+
+				]).then(function(response){
+
+					
+
+				});
+
+
 		}; // movie() ends here
+
+
+
+		//-----------------------------------------------------------------------------------------------------------------------------
+		
+		//Say what I say
+
+		//-----------------------------------------------------------------------------------------------------------------------------
 
 		function say () {
 
