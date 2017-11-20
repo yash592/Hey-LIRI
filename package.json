@@ -17,7 +17,9 @@
   },
   "homepage": "https://github.com/yash592/Hey-LIRI#readme",
   "dependencies": {
+    "inquirer": "^4.0.0",
     "node-spotify-api": "^1.0.7",
+    "omdbapi": "^2.0.1",
     "request": "^2.83.0",
     "twitter": "^1.7.1"
   }
