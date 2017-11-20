@@ -77,7 +77,7 @@ inquirer.prompt ([
 			break;
 
 			case "Do what it says":
-			console.log("FU!");
+			console.log("Text file!");
 			say();
 			break;
 
@@ -149,6 +149,8 @@ inquirer.prompt ([
 					  if (err) {
 					    return console.log('Error occurred: ' + err);
 					  }
+
+					  console.log(data);
 
 					  for (var i = 0; i < 4; i++) {
 
